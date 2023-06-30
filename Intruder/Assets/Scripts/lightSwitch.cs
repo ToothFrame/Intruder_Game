@@ -22,7 +22,6 @@ public class lightSwitch : MonoBehaviour
             updateLight();
         }
     }
-    public TMP_Text statusText; 
 
     //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
     private void OnTriggerEnter(Collider other)
