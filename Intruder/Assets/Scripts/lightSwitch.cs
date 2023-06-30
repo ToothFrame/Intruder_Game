@@ -10,9 +10,21 @@ public class lightSwitch : MonoBehaviour
     //GameObject per attivare/disattivare la luce
     public GameObject lightSource; 
     //Testo per segnalare l'interazione
+
+    public TMP_Text statusText;
+    public bool isPlayerInTrigger;
+
+    //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
+    void Update()
+    {
+        if (Input.GetKeyDown("e")&& isPlayerInTrigger)
+        {
+            updateLight();
+        }
+    }
     public TMP_Text statusText; 
 
-    //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider � la variabile per stabilire l'oggetto)
+    //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
     private void OnTriggerEnter(Collider other)
     {
         //aggiorno il testo sempre in un altra funzione
@@ -29,6 +41,7 @@ public class lightSwitch : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            isPlayerInTrigger = true;
             if (Input.GetKeyDown("e"))
             {
                 updateLight(); 
@@ -42,6 +55,7 @@ public class lightSwitch : MonoBehaviour
         if (other.tag == "Player")
         {
             statusText.text = ""; 
+            isPlayerInTrigger = false;
         }
     }
 
