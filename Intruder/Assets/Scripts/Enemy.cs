@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+<<<<<<< Updated upstream
     public Transform rayOrigin;
     public Transform player;
     public enemyStatus status;
@@ -110,5 +111,40 @@ public class Enemy : MonoBehaviour
                 Debug.DrawRay(rayOrigin.position, Quaternion.Euler(0, x, 0) * this.gameObject.transform.forward * rayDistance, Color.green);
             }
         }
+=======
+    public Transform[] waypoints;
+    public NavMeshAgent nav;
+    public int currentWaypoint;
+    public bool enemyIsMoving; 
+
+
+    void Start()
+    {
+        nav = GetComponent<NavMeshAgent>();
+        UpdatePosition();
+        enemyIsMoving = true;
+    }
+
+    void Update()
+    {
+        if(Vector3.Distance(gameObject.transform.position, waypoints[currentWaypoint].position) < 1f && enemyIsMoving)
+        {
+            enemyIsMoving = false;
+            StartCoroutine(WaitOnPoint()); 
+        }
+    }
+
+    void UpdatePosition()
+    {
+        currentWaypoint = Random.Range(0, waypoints.Length); 
+        nav.SetDestination(waypoints[currentWaypoint].position);
+    }
+
+    IEnumerator WaitOnPoint()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, 4f));
+        UpdatePosition();
+        enemyIsMoving = true;
+>>>>>>> Stashed changes
     }
 }
