@@ -112,3 +112,40 @@ public class Enemy : MonoBehaviour
         }
     }
 }
+    /*
+    public Transform[] waypoints;
+    public NavMeshAgent nav;
+    public int currentWaypoint;
+    public bool enemyIsMoving; 
+
+
+    void Start()
+    {
+        nav = GetComponent<NavMeshAgent>();
+        UpdatePosition();
+        enemyIsMoving = true;
+    }
+
+    void Update()
+    {
+        if(Vector3.Distance(gameObject.transform.position, waypoints[currentWaypoint].position) < 1f && enemyIsMoving)
+        {
+            enemyIsMoving = false;
+            StartCoroutine(WaitOnPoint()); 
+        }
+    }
+
+    void UpdatePosition()
+    {
+        currentWaypoint = Random.Range(0, waypoints.Length); 
+        nav.SetDestination(waypoints[currentWaypoint].position);
+    }
+
+    IEnumerator WaitOnPoint()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, 4f));
+        UpdatePosition();
+        enemyIsMoving = true;
+    }
+}
+    */
