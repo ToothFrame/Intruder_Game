@@ -12,55 +12,22 @@ public class lightSwitch : MonoBehaviour
     //Testo per segnalare l'interazione
 
     public TMP_Text statusText;
-    public bool isPlayerInTrigger;
+    public bool isPlayerInTrigger; //Ho mantenuto la variabile, che ora è gestita da mouse look 
+    public AudioSource switchAudio; //risorsa audio pe riprodurre il suono
 
     //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
     void Update()
     {
-        if (Input.GetKeyDown("e")&& isPlayerInTrigger)
+        if (Input.GetButtonDown("Fire1") && isPlayerInTrigger) //Se il player è nel trigger e premo il tasto sinistro, accendo/spengo la luce.
         {
             updateLight();
         }
     }
 
-    //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
-    private void OnTriggerEnter(Collider other)
-    {
-        //aggiorno il testo sempre in un altra funzione
-
-        //controllo che la tag dell'oggetto sia 'Player'
-
-        if (other.tag == "Player")
-            updateText(); 
-
-       
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            isPlayerInTrigger = true;
-            if (Input.GetKeyDown("e"))
-            {
-                updateLight(); 
-            }
-        }
-    }
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            statusText.text = ""; 
-            isPlayerInTrigger = false;
-        }
-    }
-
     void updateLight()
     {
-        if(lightOn)
+        switchAudio.Play();  //Riproduco audio
+        if (lightOn)
         {
             lightOn = false;
             lightSource.SetActive(lightOn);
@@ -73,16 +40,22 @@ public class lightSwitch : MonoBehaviour
         updateText(); 
     }
 
-    void updateText()
+    public void updateText()
     {
-        if (lightOn)
+        if (isPlayerInTrigger)
         {
-            statusText.text = "Press 'e' to turn light off";
+            if (lightOn)
+            {
+                statusText.text = "Press 'LMB' to turn light off";
+            }
+            else
+            {
+                statusText.text = "Press 'LMB' to turn light on";
+            }
         }
         else
         {
-            statusText.text = "Press 'e' to turn light on";
+            statusText.text = "";
         }
-        
     }
 }
