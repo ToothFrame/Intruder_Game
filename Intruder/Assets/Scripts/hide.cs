@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; 
+using TMPro;
 
 public class hide : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class hide : MonoBehaviour
     public GameObject hideCam;
 
     public TMP_Text statusText;
-    public bool isPlayerInTrigger;
+    public bool isInteractable;
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class hide : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isPlayerInTrigger) 
+        if (Input.GetButtonDown("Fire1") && isInteractable) 
         {
             updateLight();
         }
@@ -46,7 +46,7 @@ public class hide : MonoBehaviour
 
     public void updateText()
     {
-        if (isPlayerInTrigger)
+        if (isInteractable)
         {
             if (isHide)
             {
