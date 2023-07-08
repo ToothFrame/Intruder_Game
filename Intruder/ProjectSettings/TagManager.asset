@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Switch
   - Door
+  - HideZone
+  - Noise
   layers:
   - Default
   - TransparentFX
