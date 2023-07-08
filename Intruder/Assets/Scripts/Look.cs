@@ -10,6 +10,7 @@ public class Look : MonoBehaviour
     public Camera cam;
     public lightSwitch lastSwitch;
     public hide lastHide;
+    public noiseMaker lastNoise;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,14 +31,20 @@ public class Look : MonoBehaviour
             if (hit.transform.tag == "Switch") //se colpisco qualcosa con tag switch
             {
                 lastSwitch = hit.transform.GetComponent<lightSwitch>();
-                lastSwitch.isPlayerInTrigger = true; //vado ad attivare player on trigger per dire a unity che si può attivare la luce
+                lastSwitch.isInteractable = true; //vado ad attivare player on trigger per dire a unity che si può attivare la luce
                 lastSwitch.updateText();
             } else if (hit.transform.tag == "HideZone")
             {
                 lastHide = hit.transform.GetComponent<hide>();
-                lastHide.isPlayerInTrigger = true; 
+                lastHide.isInteractable = true; 
                 lastHide.updateText();
-            } else if (hit.transform.tag == "Door")
+            }else if (hit.transform.tag == "Noise")
+            {
+                lastNoise = hit.transform.GetComponent<noiseMaker>();
+                lastNoise.isPlayerInTrigger = true;
+                lastNoise.updateText();
+            }
+            else if (hit.transform.tag == "Door")
             {
                 //Debug.DrawRay(cam.transform.position, transform.TransformDirection(Vector3.forward), Color.red);
             }
@@ -45,14 +52,19 @@ public class Look : MonoBehaviour
            
             if(lastSwitch != null)  //se non ho mai colpito un interruttore non faccio assolutamente nulla
             {
-                lastSwitch.isPlayerInTrigger = false; //se non colpisco nulla, resetto lo stato dell'ultimo iterruttore
+                lastSwitch.isInteractable = false; //se non colpisco nulla, resetto lo stato dell'ultimo iterruttore
                 lastSwitch.updateText();
             }
 
             if (lastHide != null)  //se non ho mai colpito un interruttore non faccio assolutamente nulla
             {
-                lastHide.isPlayerInTrigger = false; //se non colpisco nulla, resetto lo stato dell'ultimo iterruttore
+                lastHide.isInteractable = false; //se non colpisco nulla, resetto lo stato dell'ultimo iterruttore
                 lastHide.updateText();
+            }
+            if (lastNoise != null)  //se non ho mai colpito un interruttore non faccio assolutamente nulla
+            {
+                lastNoise.isPlayerInTrigger = false; //se non colpisco nulla, resetto lo stato dell'ultimo iterruttore
+                lastNoise.updateText();
             }
 
         }

@@ -12,13 +12,13 @@ public class lightSwitch : MonoBehaviour
     //Testo per segnalare l'interazione
 
     public TMP_Text statusText;
-    public bool isPlayerInTrigger; //Ho mantenuto la variabile, che ora è gestita da mouse look 
+    public bool isInteractable; //Ho mantenuto la variabile, che ora è gestita da mouse look 
     public AudioSource switchAudio; //risorsa audio pe riprodurre il suono
 
     //Questa funzione viene triggerata quando un altro oggetto entra nel trigger (Collider è la variabile per stabilire l'oggetto)
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && isPlayerInTrigger) //Se il player è nel trigger e premo il tasto sinistro, accendo/spengo la luce.
+        if (Input.GetButtonDown("Fire1") && isInteractable) //Se il player è nel trigger e premo il tasto sinistro, accendo/spengo la luce.
         {
             updateLight();
         }
@@ -42,7 +42,7 @@ public class lightSwitch : MonoBehaviour
 
     public void updateText()
     {
-        if (isPlayerInTrigger)
+        if (isInteractable)
         {
             if (lightOn)
             {
