@@ -19,6 +19,9 @@ public class InteractionText : MonoBehaviour
             case ("Switch"):
                 statusText.text = "Switch";
                 break;
+            case ("Noisemaker"):
+                statusText.text = "Noisemaker";
+                break;
             default:
                 statusText.text = "";
                 break;
