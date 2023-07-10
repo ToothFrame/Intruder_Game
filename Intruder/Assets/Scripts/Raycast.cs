@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+interface IInteractable
+{
+    public void Interact();
+}
+
 public class Raycast : MonoBehaviour
 {
+    public Transform InteractorSource;
     public Camera cam;
     public InteractionText intText;
     private RaycastHit hit;
@@ -17,14 +23,19 @@ public class Raycast : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        bool ray = Physics.Raycast(cam.transform.position, transform.TransformDirection(Vector3.forward), out hit, range);
-        if (ray)
+        Ray r = new Ray(InteractorSource.position, InteractorSource.forward);
+        //bool ray = Physics.Raycast(cam.transform.position, transform.TransformDirection(Vector3.forward), out hit, range);
+        if (Physics.Raycast(r, out RaycastHit hitInfo, range))
         {
-            colliderTag = hit.collider.tag;
-            intText.UpdateText(colliderTag);
-            print(hit.collider.tag);
+            if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObject) && Input.GetMouseButtonDown(0))
+            {
+                interactObject.Interact();
+            }
+           // colliderTag = hit.collider.tag;
+            intText.UpdateText(hitInfo.collider.tag);
+            //print(hit.collider.tag);
         }
         else
         {
