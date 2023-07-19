@@ -7,8 +7,8 @@ public class PlayerController : MonoBehaviour
     public CharacterController controller;
     public float playerSpeed = 10f;
     public float sprintMultiplier = 1.5f;
-    public Vector3 scale = new Vector3(1f, 1f, 1f);
     public bool isHiding = false;
+    public Transform cam;
 
     void Start()
     {
@@ -53,11 +53,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!isHiding)
         {
-            transform.localScale = new Vector3(1f, 0.5f, 1f);
+            cam.localPosition = new Vector3(cam.localPosition.x, 0.5f, cam.localPosition.z);
         }
         else
         {
-            transform.localScale = new Vector3(1f, 1f, 1f);
+            cam.localPosition = Vector3.up;
         }
         return !isHiding;
     }
